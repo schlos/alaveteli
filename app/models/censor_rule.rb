@@ -92,7 +92,7 @@ class CensorRule < ActiveRecord::Base
     end
 
     def to_replace(encoding)
-        if self.regexp?
+        if self.regexp == true
             make_regexp(encoding)
         else
             encoded_text(encoding)
