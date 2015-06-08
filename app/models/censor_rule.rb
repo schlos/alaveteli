@@ -96,10 +96,14 @@ class CensorRule < ActiveRecord::Base
 
 
     def to_replace(encoding)
+        puts self.method(:regexp?)
+        puts self.method(:regexp?).source_location
         if self.regexp?
-            make_regexp(encoding)
+            Regexp.new("s")
+            # make_regexp(encoding)
         else
-            encoded_text(encoding)
+            ""
+            # encoded_text(encoding)
         end
     end
 
