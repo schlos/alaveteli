@@ -45,6 +45,7 @@ class CensorRule < ActiveRecord::Base
     def apply_to_text!(text_to_censor)
         return nil if text_to_censor.nil?
         encoding = String.method_defined?(:encode) ? text_to_censor.encoding : nil
+        puts encoding
         text_to_censor.gsub!(to_replace(encoding), replacement)
     end
 
@@ -90,20 +91,11 @@ class CensorRule < ActiveRecord::Base
         String.method_defined?(:encode) ? text.dup.force_encoding(encoding) : text
     end
 
-
-
-
-
-
     def to_replace(encoding)
-        puts self.method(:regexp?)
-        puts self.method(:regexp?).source_location
         if self.regexp?
-            Regexp.new("s")
-            # make_regexp(encoding)
+            make_regexp(encoding)
         else
-            ""
-            # encoded_text(encoding)
+            encoded_text(encoding)
         end
     end
 
